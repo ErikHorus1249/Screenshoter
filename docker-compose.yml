@@ -1,0 +1,23 @@
+version: "3.0"
+   
+services:
+  fis:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - NODE_ENV=local
+    env_file:
+      - .env.dev
+    container_name: screenshoter
+    command: python /core/main.py
+    volumes:
+      - ./core:/core
+      - ./driver/chromedriver:/usr/bin/chromedriver
+    restart: always
+    networks:
+      backend_net_01:
+
+networks: 
+  backend_net_01:
+    driver: bridge
